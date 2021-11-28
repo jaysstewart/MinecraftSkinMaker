@@ -1,3 +1,4 @@
 # MinecraftSkinMaker
-Inital creation of program
-switched to python due to support with image processing and web GUI with PyQT5
+Program to concatinate image to generate a minecraft skin
+
+Initally made in Java, but switched to python due to support for image processing and web GUI integration
