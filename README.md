@@ -1,3 +1,3 @@
 # MinecraftSkinMaker
-Program to concatinate skin customization into 1 skin for minecraft.
-Planned to be embeded into a website
+Inital creation of program
+switched to python due to support with image processing and web GUI with PyQT5
