@@ -1,14 +1,16 @@
+from collections import deque
+
+
 class Skin:
 
-    # skin object
     # each attribute holds an image
     def __init__(self):
-        self._head = None
         self._body = None
+        self._head = None
         self._arms = None
         self._legs = None
 
-    #setters
+    # setters
     def set_head(self, a):
         self._head = a
 
@@ -21,7 +23,7 @@ class Skin:
     def set_legs(self, a):
         self._legs = a
 
-    #getters
+    # getters
     def get_head(self):
         return self._head
 
@@ -33,3 +35,7 @@ class Skin:
 
     def get_legs(self):
         return self._legs
+
+    #Skin = property(get_body(), get_head(), get_arms(), get_legs())
+    #body = property(body(), set_body())
+    #head = property(get_head(), set_head())

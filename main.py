@@ -6,7 +6,7 @@ from collections import deque
 from PIL import Image
 import glob
 
-import Skin
+from Skin import Skin
 import actions
 
 image_list = []
@@ -15,18 +15,24 @@ for filename in glob.glob("skintemplatetests/*.png"):
     im = Image.open(filename)
     image_list.append(im)
     q.append(im)
-    #q.
 
-#im1 = image_list[0]
-#im2 = image_list[1]
-#im3 = image_list[2]
-#im4 = image_list[3]
-#im1.paste(im2, (0,0), im2)
-#im1.paste(im3, (0,0), im3)
-#im1.paste(im4, (0,0), im4)
-#im1.save("skin.png")
-#im1.show()
-actions.recompileImage(q)
+s = Skin
+s.set_body = q[0]
+print(s.get_body(s))
+#s.head = q[1]
+#s.legs = q[2]
+#s.arms = q[3]
+#q.reverse()
+
+#actions.setDefaultLayers(q)
+#print(q[0])
+#actions.recompileImage(q)
+
+
+
+#q.reverse()
+#actions.setDefaultLayers(q)
+#actions.recompileImage(q)
 #o = Skin.Skin()
 #print(o.get_head())
 #o.set_head("2")
