@@ -3,28 +3,20 @@ from PIL import Image
 from Skin import Skin
 
 
-def setDefaultLayers(q):
-    s = Skin
-    q.clear()
-    q.append(s.get_body)
-    q.append(s.get_head)
-    q.append(s.get_arms)
-    q.append(s.get_legs)
-    return q
-
-
 # move layer up an element in queue
-def moveLayerUp(q, layer):
-    i = q.index(layer) + 1
-    q.remove(layer)
-    q.insert(i, layer)
+def moveLayerUp(q, layerIdx):
+    i = layerIdx + 1
+    img = q[layerIdx]
+    del q[layerIdx]
+    q.insert(i, layerIdx)
 
 
 # move layer down an element in queue
-def moveLayerDown(q, layer):
-    i = q.index(layer) - 1
-    q.remove(layer)
-    q.insert(i, layer)
+def moveLayerDown(q, layerIdx):
+    i = layerIdx - 1
+    img = q[layerIdx]
+    del q[layerIdx]
+    q.insert(i, img)
 
 
 # compile image skin, 1st queue element = bottom layer
