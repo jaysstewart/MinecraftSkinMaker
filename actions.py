@@ -5,18 +5,25 @@ from Skin import Skin
 
 # move layer up an element in queue
 def moveLayerUp(q, layerIdx):
-    i = layerIdx + 1
-    img = q[layerIdx]
-    del q[layerIdx]
-    q.insert(i, layerIdx)
+    if not layerIdx == len(q) - 1:
+        i = layerIdx + 1
+        img = q[layerIdx]
+        del q[layerIdx]
+        q.insert(i, img)
 
 
 # move layer down an element in queue
 def moveLayerDown(q, layerIdx):
-    i = layerIdx - 1
-    img = q[layerIdx]
-    del q[layerIdx]
-    q.insert(i, img)
+    if not layerIdx == 0:
+        i = layerIdx - 1
+        img = q[layerIdx]
+        del q[layerIdx]
+        q.insert(i, img)
+
+
+def testButton():
+    print("1234")
+
 
 
 # compile image skin, 1st queue element = bottom layer

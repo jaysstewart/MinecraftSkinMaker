@@ -36,6 +36,3 @@ class Skin:
     def get_legs(self):
         return self.legs
 
-    #Skin = property(get_body(), get_head(), get_arms(), get_legs())
-    #body = property(body(), set_body())
-    #head = property(get_head(), set_head())
