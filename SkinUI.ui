@@ -129,16 +129,6 @@
      <string>Full Body</string>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="graphicsView">
-    <property name="geometry">
-     <rect>
-      <x>425</x>
-      <y>140</y>
-      <width>311</width>
-      <height>391</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QListView" name="listView">
     <property name="geometry">
      <rect>
