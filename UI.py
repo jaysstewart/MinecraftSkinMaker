@@ -14,8 +14,8 @@ class UI(QtWidgets.QMainWindow):
         self.imageLabel.setPixmap(img)
 
     def __init__(self):
-        #q = deque()
-        #for filename in glob.glob("skintemplatetests/*.png"):
+        # q = deque()
+        # for filename in glob.glob("skintemplatetests/*.png"):
         #    im = Image.open(filename)
         #    q.append(im)
         super(UI, self).__init__()
@@ -24,9 +24,6 @@ class UI(QtWidgets.QMainWindow):
         self.compileButton = self.findChild(QtWidgets.QPushButton, 'compileButton')
         self.compileButton.clicked.connect(self.setImage)
         self.show()
-
-
-
 
 
 app = QtWidgets.QApplication(sys.argv)
