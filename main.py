@@ -13,12 +13,5 @@ import actions
 
 UI()
 
-#skin = Skin()
-#actions.moveLayerUp(q, 0)
-#actions.recompileImage(q)
-#s.head = q[1]
-#s.legs = q[2]
-#s.arms = q[3]
-#q.reverse()
 
 
