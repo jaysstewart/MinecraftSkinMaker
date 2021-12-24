@@ -8,11 +8,36 @@ import actions
 
 
 class UI(QtWidgets.QMainWindow):
-    # loop to populate queue with skin pictures
-    q = deque()
-    for filename in glob.glob("skintemplatetests/*.png"):
+    # populate base Array
+    baseAr = list()
+    for filename in glob.glob("skintemplates/Base/*.png"):
         im = Image.open(filename)
-        q.append(im)
+        baseAr.append(im)
+
+    # populate head Array
+    headAr = list()
+    for filename in glob.glob("skintemplates/head/*.png"):
+        im = Image.open(filename)
+        headAr.append(im)
+
+    # populate legs array
+    legsAr = list()
+    for filename in glob.glob("skintemplates/pants/*.png"):
+        im = Image.open(filename)
+        legsAr.append(im)
+
+    # populate arms array
+    armsAr = list()
+    for filename in glob.glob("skintemplates/shirt/*.png"):
+        im = Image.open(filename)
+        armsAr.append(im)
+
+    # test code to populate q, DELETE LATER
+    q = deque()
+    q.append(baseAr[0])
+    q.append(headAr[0])
+    q.append(legsAr[0])
+    q.append(armsAr[1])
 
     def __init__(self):
         super(UI, self).__init__()
@@ -25,9 +50,9 @@ class UI(QtWidgets.QMainWindow):
 
         self.baseTable.setRowCount(4)
         self.baseTable.setColumnCount(1)
-        self.newItem = self.QTableWidgetItem("test")
+        # self.newItem = self.QTableWidgetItem("test")
 
-        #self.baseTable.setItem(0,0, self.newItem)
+        # self.baseTable.setItem(0,0, self.newItem)
 
         self.compileButton.clicked.connect(self.compile)
         self.show()
