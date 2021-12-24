@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets, uic
+from PyQt5.QtWidgets import QTableWidgetItem
 from PyQt5.QtGui import QPixmap
 import sys
 from collections import deque
@@ -50,9 +51,10 @@ class UI(QtWidgets.QMainWindow):
 
         self.baseTable.setRowCount(4)
         self.baseTable.setColumnCount(1)
-        # self.newItem = self.QTableWidgetItem("test")
+        self.newItem = QTableWidgetItem()
+        self.newItem.setPixmap(self.baseAr[0])
 
-        # self.baseTable.setItem(0,0, self.newItem)
+        self.baseTable.setItem(0,0, self.newItem)
 
         self.compileButton.clicked.connect(self.compile)
         self.show()
