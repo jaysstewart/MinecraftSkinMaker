@@ -1,5 +1,4 @@
-from PyQt5 import QtWidgets, uic
-from PyQt5.QtWidgets import QTableWidgetItem
+from PyQt5 import QtCore, QtWidgets, uic, QtGui
 from PyQt5.QtGui import QPixmap
 import sys
 from collections import deque
@@ -49,12 +48,28 @@ class UI(QtWidgets.QMainWindow):
         self.compileButton = self.findChild(QtWidgets.QPushButton, 'compileButton')
         self.baseTable = self.findChild(QtWidgets.QTableWidget, 'baseTable')
 
-        self.baseTable.setRowCount(4)
-        self.baseTable.setColumnCount(1)
-        self.newItem = QTableWidgetItem()
-        self.newItem.setPixmap(self.baseAr[0])
+        self.pic = QtGui.QPixmap("skintemplates/Base/base1.png")
+        self.pic2 = QtGui.QPixmap("skintemplates/Base/base2.png")
 
-        self.baseTable.setItem(0,0, self.newItem)
+        self.tableLabel = QtWidgets.QLabel()
+        self.tableLabel2 = QtWidgets.QLabel()
+        self.tableLabel.setScaledContents(True)
+        self.tableLabel2.setScaledContents(True)
+
+        #self.newItem = QtWidgets.QWidgetItem()
+        #self.newItem.setPixmap()
+
+        self.tableLabel.setPixmap(self.pic)
+        self.tableLabel2.setPixmap(self.pic2)
+
+        #self.baseTable.setRowCount(5)
+
+        self.baseTable.setCellWidget(0,0, self.tableLabel)
+        #self.baseTable.setCellWidget(1,1,self.tableLabel2)
+
+
+
+
 
         self.compileButton.clicked.connect(self.compile)
         self.show()
