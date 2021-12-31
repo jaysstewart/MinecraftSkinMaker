@@ -22,7 +22,6 @@ def moveLayerDown(q, layerIdx):
 
 
 # compile image skin, 1st queue element = bottom layer
-
 def recompileImage(q):
     img1 = q[0]
     for i in range(len(q) - 1):

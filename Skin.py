@@ -7,8 +7,8 @@ class Skin:
     def __init__(self):
         self.body = None
         self.head = None
-        self.arms = None
-        self.legs = None
+        self.shirt = None
+        self.pants = None
 
     # setters
     def set_head(self, a):
@@ -17,11 +17,11 @@ class Skin:
     def set_body(self, a):
         self.body = a
 
-    def set_arms(self, a):
-        self.arms = a
+    def set_shirt(self, a):
+        self.shirt = a
 
-    def set_legs(self, a):
-        self.legs = a
+    def set_pants(self, a):
+        self.pants = a
 
     # getters
     def get_head(self):
@@ -30,9 +30,9 @@ class Skin:
     def get_body(self):
         return self.body
 
-    def get_arms(self):
-        return self.arms
+    def get_shirt(self):
+        return self.shirt
 
-    def get_legs(self):
-        return self.legs
+    def get_pants(self):
+        return self.pants
 

@@ -1,12 +1,14 @@
+import os.path
+
 from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtGui import QPixmap
 import sys
 from collections import deque
-import glob
 from PIL import Image
 import actions
 
 
+# Image object to be place in table cells
 class ImageWidget(QtWidgets.QWidget):
 
     def __init__(self, imagePath, parent):
@@ -21,34 +23,43 @@ class ImageWidget(QtWidgets.QWidget):
 class UI(QtWidgets.QMainWindow):
     # populate base Array
     baseAr = list()
-    for filename in glob.glob("skintemplates/Base/*.png"):
-        im = Image.open(filename)
-        baseAr.append(im)
+    d = "skintemplates/Base/"
+    for path in os.listdir(d):
+        full_path = os.path.join(d, path)
+        if os.path.isfile(full_path):
+            baseAr.append(full_path)
 
     # populate head Array
     headAr = list()
-    for filename in glob.glob("skintemplates/head/*.png"):
-        im = Image.open(filename)
-        headAr.append(im)
+    d = "skintemplates/head/"
+    for path in os.listdir(d):
+        full_path = os.path.join(d, path)
+        if os.path.isfile(full_path):
+            headAr.append(full_path)
 
     # populate legs array
-    legsAr = list()
-    for filename in glob.glob("skintemplates/pants/*.png"):
-        im = Image.open(filename)
-        legsAr.append(im)
+    pantsAr = list()
+    d = "skintemplates/pants/"
+    for path in os.listdir(d):
+        full_path = os.path.join(d, path)
+        if os.path.isfile(full_path):
+            pantsAr.append(full_path)
 
     # populate arms array
-    armsAr = list()
-    for filename in glob.glob("skintemplates/shirt/*.png"):
-        im = Image.open(filename)
-        armsAr.append(im)
+    shirtAr = list()
+    d = "skintemplates/shirt/"
+    for path in os.listdir(d):
+        full_path = os.path.join(d, path)
+        if os.path.isfile(full_path):
+            shirtAr.append(full_path)
 
     # test code to populate q, DELETE LATER
     q = deque()
-    q.append(baseAr[0])
-    q.append(headAr[0])
-    q.append(legsAr[0])
-    q.append(armsAr[1])
+
+    q.append(Image.open(baseAr[1]))
+    q.append(Image.open(headAr[0]))
+    q.append(Image.open(pantsAr[0]))
+    q.append(Image.open(shirtAr[1]))
 
     def __init__(self):
         super(UI, self).__init__()
@@ -59,12 +70,7 @@ class UI(QtWidgets.QMainWindow):
         self.compileButton = self.findChild(QtWidgets.QPushButton, 'compileButton')
         self.baseTable = self.findChild(QtWidgets.QTableWidget, 'baseTable')
 
-        self.baseTable.setRowCount(2)
-        self.baseTable.setColumnCount(2)
-
-        im = ImageWidget("skintemplates/Base/base1.png", self.baseTable)
-
-        self.baseTable.setCellWidget(0, 0, im)
+        self.fillBaseTable()
 
         self.compileButton.clicked.connect(self.compile)
         self.show()
@@ -74,6 +80,31 @@ class UI(QtWidgets.QMainWindow):
         actions.recompileImage(self.q)
         img = QPixmap('skin.png')
         self.imageLabel.setPixmap(img)
+
+    def fillBaseTable(self):
+        # counter to hold array place
+        self.baseTable.setRowCount(2)
+
+        counter = 0
+        row = 0
+        column = 0
+
+        # iterate through columns
+        for i in self.baseAr:
+            # edge case
+            if i == 0:
+                self.baseTable.setColumnCount(column + 1)
+                self.baseTable.setCellWidget(row, column, ImageWidget(i, self.baseTable))
+                row += 1
+                continue
+
+            if row == 2:
+                row = 0
+                column += 1
+                self.baseTable.setColumnCount(column + 1)
+
+            self.baseTable.setCellWidget(row, column, ImageWidget(i, self.baseTable))
+            row += 1
 
 
 app = QtWidgets.QApplication(sys.argv)
