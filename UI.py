@@ -1,6 +1,6 @@
 import os.path
 
-from PyQt5 import QtWidgets, uic, QtGui
+from PyQt5 import QtWidgets, uic, QtGui, QtCore
 from PyQt5.QtGui import QPixmap
 import sys
 from collections import deque
@@ -65,7 +65,7 @@ class UI(QtWidgets.QMainWindow):
         super(UI, self).__init__()
         uic.loadUi('SkinUI.ui', self)
 
-        # link UI with methods
+        # link UI with python object
         self.imageLabel = self.findChild(QtWidgets.QLabel, 'imageLabel')
         self.compileButton = self.findChild(QtWidgets.QPushButton, 'compileButton')
         self.baseTable = self.findChild(QtWidgets.QTableWidget, 'baseTable')
@@ -73,14 +73,20 @@ class UI(QtWidgets.QMainWindow):
         self.shirtTable = self.findChild(QtWidgets.QTableWidget, 'shirtTable')
         self.pantsTable = self.findChild(QtWidgets.QTableWidget, 'pantsTable')
 
-
         self.fillTable(self.baseAr, self.baseTable)
         self.fillTable(self.headAr, self.headTable)
         self.fillTable(self.shirtAr, self.shirtTable)
         self.fillTable(self.pantsAr, self.pantsTable)
 
+        self.baseTable.clicked.connect(self.test())
+
         self.compileButton.clicked.connect(self.compile)
         self.show()
+
+
+    def test(self):
+        print(1)
+        print(2)
 
     # calls recompile method, and resets imageLabel
     def compile(self):
