@@ -69,8 +69,15 @@ class UI(QtWidgets.QMainWindow):
         self.imageLabel = self.findChild(QtWidgets.QLabel, 'imageLabel')
         self.compileButton = self.findChild(QtWidgets.QPushButton, 'compileButton')
         self.baseTable = self.findChild(QtWidgets.QTableWidget, 'baseTable')
+        self.headTable = self.findChild(QtWidgets.QTableWidget, 'headTable')
+        self.shirtTable = self.findChild(QtWidgets.QTableWidget, 'shirtTable')
+        self.pantsTable = self.findChild(QtWidgets.QTableWidget, 'pantsTable')
 
-        self.fillBaseTable()
+
+        self.fillTable(self.baseAr, self.baseTable)
+        self.fillTable(self.headAr, self.headTable)
+        self.fillTable(self.shirtAr, self.shirtTable)
+        self.fillTable(self.pantsAr, self.pantsTable)
 
         self.compileButton.clicked.connect(self.compile)
         self.show()
@@ -81,30 +88,30 @@ class UI(QtWidgets.QMainWindow):
         img = QPixmap('skin.png')
         self.imageLabel.setPixmap(img)
 
-    def fillBaseTable(self):
-        # counter to hold array place
-        self.baseTable.setRowCount(2)
+    # dynamically fill tables with images from array
 
-        counter = 0
+    def fillTable(self, ar, table):
+
+        table.setColumnCount(2)
+        table.setRowCount(2)
         row = 0
         column = 0
 
         # iterate through columns
-        for i in self.baseAr:
+        for i in ar:
             # edge case
             if i == 0:
-                self.baseTable.setColumnCount(column + 1)
-                self.baseTable.setCellWidget(row, column, ImageWidget(i, self.baseTable))
-                row += 1
-                continue
-
-            if row == 2:
-                row = 0
+                table.setRowCount(row + 1)
+                table.setCellWidget(row, column, ImageWidget(i, table))
                 column += 1
-                self.baseTable.setColumnCount(column + 1)
+                continue
+            elif column == 2:
+                row += 1
+                column = 0
+                table.setRowCount(row + 1)
 
-            self.baseTable.setCellWidget(row, column, ImageWidget(i, self.baseTable))
-            row += 1
+            table.setCellWidget(row, column, ImageWidget(i, table))
+            column += 1
 
 
 app = QtWidgets.QApplication(sys.argv)

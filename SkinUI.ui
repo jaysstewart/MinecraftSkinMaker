@@ -14,29 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTableView" name="tableView_2">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>200</y>
-      <width>271</width>
-      <height>161</height>
-     </rect>
-    </property>
-    <property name="gridStyle">
-     <enum>Qt::SolidLine</enum>
-    </property>
-   </widget>
-   <widget class="QTableView" name="tableView_3">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>390</y>
-      <width>271</width>
-      <height>161</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
@@ -74,26 +51,6 @@
     </property>
     <property name="text">
      <string>Shirts</string>
-    </property>
-   </widget>
-   <widget class="QTableView" name="tableView_4">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>570</y>
-      <width>271</width>
-      <height>161</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTableView" name="tableView_5">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>760</y>
-      <width>271</width>
-      <height>161</height>
-     </rect>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -189,6 +146,46 @@
      <rect>
       <x>40</x>
       <y>20</y>
+      <width>271</width>
+      <height>161</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="headTable">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>200</y>
+      <width>271</width>
+      <height>161</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="shirtTable">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>390</y>
+      <width>271</width>
+      <height>161</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="pantsTable">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>570</y>
+      <width>271</width>
+      <height>161</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget_4">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>760</y>
       <width>271</width>
       <height>161</height>
      </rect>
