@@ -1,6 +1,5 @@
 from collections import deque
 from PIL import Image
-from Skin import Skin
 
 
 # move layer up an element in queue

@@ -1,6 +1,6 @@
 import os.path
-from PyQt5 import QtWidgets, uic, QtGui, QtCore
-from PyQt5.QtGui import QPixmap
+from PyQt5 import QtWidgets, uic, QtGui
+from PyQt5.QtGui import QPixmap, QIcon
 import sys
 from collections import deque
 from PIL import Image
@@ -61,7 +61,7 @@ class UI(QtWidgets.QMainWindow):
     # test code to populate q, DELETE LATER
     q = deque()
 
-    #q.append(Image.open(headAr[0]))
+    q.append((headAr[0]))
     #q.append(Image.open(pantsAr[0]))
     #q.append(Image.open(shirtAr[1]))
 
@@ -72,6 +72,8 @@ class UI(QtWidgets.QMainWindow):
         # link UI with python object
         self.imageLabel = self.findChild(QtWidgets.QLabel, 'imageLabel')
         self.compileButton = self.findChild(QtWidgets.QPushButton, 'compileButton')
+        self.listWidget = self.findChild(QtWidgets.QListWidget, 'listWidget')
+
         self.baseTable = self.findChild(QtWidgets.QTableWidget, 'baseTable')
         self.headTable = self.findChild(QtWidgets.QTableWidget, 'headTable')
         self.shirtTable = self.findChild(QtWidgets.QTableWidget, 'shirtTable')
@@ -88,6 +90,11 @@ class UI(QtWidgets.QMainWindow):
         self.headTable.selectionModel().selectionChanged.connect(self.headSelect)
         self.shirtTable.selectionModel().selectionChanged.connect(self.shirtSelect)
         self.pantsTable.selectionModel().selectionChanged.connect(self.pantsSelect)
+        icon = QtGui.QIcon(self.q[0])
+        item = QtWidgets.QListWidgetItem(icon)
+
+        self.listWidget.addItem(item)
+
 
         self.compileButton.clicked.connect(self.compile)
         self.show()
