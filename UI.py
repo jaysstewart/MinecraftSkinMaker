@@ -1,5 +1,4 @@
 import os.path
-
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 from PyQt5.QtGui import QPixmap
 import sys
@@ -13,11 +12,17 @@ class ImageWidget(QtWidgets.QWidget):
 
     def __init__(self, imagePath, parent):
         super(ImageWidget, self).__init__(parent)
-        self.picture = QtGui.QPixmap(imagePath)
+        self.path = imagePath
+        self.picture = QtGui.QPixmap(self.path)
 
     def paintEvent(self, event):
         painter = QtGui.QPainter(self)
         painter.drawPixmap(0, 0, self.picture)
+
+    def getPath(self):
+        return self.path
+
+
 
 
 class UI(QtWidgets.QMainWindow):
@@ -56,10 +61,9 @@ class UI(QtWidgets.QMainWindow):
     # test code to populate q, DELETE LATER
     q = deque()
 
-    q.append(Image.open(baseAr[1]))
-    q.append(Image.open(headAr[0]))
-    q.append(Image.open(pantsAr[0]))
-    q.append(Image.open(shirtAr[1]))
+    #q.append(Image.open(headAr[0]))
+    #q.append(Image.open(pantsAr[0]))
+    #q.append(Image.open(shirtAr[1]))
 
     def __init__(self):
         super(UI, self).__init__()
@@ -73,20 +77,45 @@ class UI(QtWidgets.QMainWindow):
         self.shirtTable = self.findChild(QtWidgets.QTableWidget, 'shirtTable')
         self.pantsTable = self.findChild(QtWidgets.QTableWidget, 'pantsTable')
 
+        # fill tables with array of images
         self.fillTable(self.baseAr, self.baseTable)
         self.fillTable(self.headAr, self.headTable)
         self.fillTable(self.shirtAr, self.shirtTable)
         self.fillTable(self.pantsAr, self.pantsTable)
 
-        self.baseTable.clicked.connect(self.test())
+        #print(self.baseTable.cellWidget(0,0).getPath())
+        self.baseTable.selectionModel().selectionChanged.connect(self.baseSelect)
+        self.headTable.selectionModel().selectionChanged.connect(self.headSelect)
+        self.shirtTable.selectionModel().selectionChanged.connect(self.shirtSelect)
+        self.pantsTable.selectionModel().selectionChanged.connect(self.pantsSelect)
 
         self.compileButton.clicked.connect(self.compile)
         self.show()
 
+    def baseSelect(self, selected, deselected):
+        for ix in selected.indexes():
+            self.q.append(Image.open(self.baseTable.cellWidget(ix.row(), ix.column()).getPath()))
+        #for ix in deselected.indexes():
+        #    self.q.remove(Image.open(self.baseTable.cellWidget(ix.row(), ix.column()).getPath()))
 
-    def test(self):
-        print(1)
-        print(2)
+    def headSelect(self, selected, deselected):
+        for ix in selected.indexes():
+            self.q.append(Image.open(self.headTable.cellWidget(ix.row(), ix.column()).getPath()))
+        #for ix in deselected.indexes():
+        #    self.q.remove(Image.open(self.headTable.cellWidget(ix.row(), ix.column()).getPath()))
+
+    def shirtSelect(self, selected, deselected):
+        for ix in selected.indexes():
+            self.q.append(Image.open(self.shirtTable.cellWidget(ix.row(), ix.column()).getPath()))
+        #for ix in deselected.indexes():
+        #    self.q.remove(Image.open(self.shirtTable.cellWidget(ix.row(), ix.column()).getPath()))
+
+    def pantsSelect(self, selected, deselected):
+        for ix in selected.indexes():
+            self.q.append(Image.open(self.pantsTable.cellWidget(ix.row(), ix.column()).getPath()))
+        #for ix in deselected.indexes():
+        #    self.q.remove(Image.open(self.pantsTable.cellWidget(ix.row(), ix.column()).getPath()))
+
 
     # calls recompile method, and resets imageLabel
     def compile(self):
