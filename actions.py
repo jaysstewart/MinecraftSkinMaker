@@ -23,10 +23,10 @@ def moveLayerDown(q, layerIdx):
 
 # compile image skin, 1st queue element = bottom layer
 def recompileImage(q):
-    img1 = q[0]
+    img1 = Image.open(q[0])
     for i in range(len(q) - 1):
         if not i == len(q):
-            img2 = q[i + 1]
+            img2 = Image.open(q[i + 1])
             img1.paste(img2, (0, 0), img2)
         else:
             break

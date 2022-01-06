@@ -83,7 +83,7 @@ class UI(QtWidgets.QMainWindow):
         self.fillTable(self.shirtAr, self.shirtTable)
         self.fillTable(self.pantsAr, self.pantsTable)
 
-        #print(self.baseTable.cellWidget(0,0).getPath())
+        # calls table listeners to make selections.
         self.baseTable.selectionModel().selectionChanged.connect(self.baseSelect)
         self.headTable.selectionModel().selectionChanged.connect(self.headSelect)
         self.shirtTable.selectionModel().selectionChanged.connect(self.shirtSelect)
@@ -92,29 +92,35 @@ class UI(QtWidgets.QMainWindow):
         self.compileButton.clicked.connect(self.compile)
         self.show()
 
+    # base table click listener
     def baseSelect(self, selected, deselected):
         for ix in selected.indexes():
-            self.q.append(Image.open(self.baseTable.cellWidget(ix.row(), ix.column()).getPath()))
-        #for ix in deselected.indexes():
-        #    self.q.remove(Image.open(self.baseTable.cellWidget(ix.row(), ix.column()).getPath()))
+            self.q.append((self.baseTable.cellWidget(ix.row(), ix.column()).getPath()))
+            print(len(self.q))
+        for ix in deselected.indexes():
+            self.q.remove((self.baseTable.cellWidget(ix.row(), ix.column()).getPath()))
 
+
+    # head table click listener
     def headSelect(self, selected, deselected):
         for ix in selected.indexes():
-            self.q.append(Image.open(self.headTable.cellWidget(ix.row(), ix.column()).getPath()))
-        #for ix in deselected.indexes():
-        #    self.q.remove(Image.open(self.headTable.cellWidget(ix.row(), ix.column()).getPath()))
+            self.q.append((self.headTable.cellWidget(ix.row(), ix.column()).getPath()))
+        for ix in deselected.indexes():
+            self.q.remove((self.headTable.cellWidget(ix.row(), ix.column()).getPath()))
 
+    # shirt table click listener
     def shirtSelect(self, selected, deselected):
         for ix in selected.indexes():
-            self.q.append(Image.open(self.shirtTable.cellWidget(ix.row(), ix.column()).getPath()))
-        #for ix in deselected.indexes():
-        #    self.q.remove(Image.open(self.shirtTable.cellWidget(ix.row(), ix.column()).getPath()))
+            self.q.append((self.shirtTable.cellWidget(ix.row(), ix.column()).getPath()))
+        for ix in deselected.indexes():
+            self.q.remove((self.shirtTable.cellWidget(ix.row(), ix.column()).getPath()))
 
+    # pants table click listener
     def pantsSelect(self, selected, deselected):
         for ix in selected.indexes():
-            self.q.append(Image.open(self.pantsTable.cellWidget(ix.row(), ix.column()).getPath()))
-        #for ix in deselected.indexes():
-        #    self.q.remove(Image.open(self.pantsTable.cellWidget(ix.row(), ix.column()).getPath()))
+            self.q.append((self.pantsTable.cellWidget(ix.row(), ix.column()).getPath()))
+        for ix in deselected.indexes():
+            self.q.remove((self.pantsTable.cellWidget(ix.row(), ix.column()).getPath()))
 
 
     # calls recompile method, and resets imageLabel
