@@ -61,7 +61,7 @@ class UI(QtWidgets.QMainWindow):
     # test code to populate q, DELETE LATER
     q = deque()
 
-    q.append((headAr[0]))
+    #q.append((headAr[0]))
     #q.append(Image.open(pantsAr[0]))
     #q.append(Image.open(shirtAr[1]))
 
@@ -79,6 +79,8 @@ class UI(QtWidgets.QMainWindow):
         self.shirtTable = self.findChild(QtWidgets.QTableWidget, 'shirtTable')
         self.pantsTable = self.findChild(QtWidgets.QTableWidget, 'pantsTable')
 
+        self.listWidget.setViewMode(QtWidgets.QListView.IconMode)
+
         # fill tables with array of images
         self.fillTable(self.baseAr, self.baseTable)
         self.fillTable(self.headAr, self.headTable)
@@ -90,10 +92,14 @@ class UI(QtWidgets.QMainWindow):
         self.headTable.selectionModel().selectionChanged.connect(self.headSelect)
         self.shirtTable.selectionModel().selectionChanged.connect(self.shirtSelect)
         self.pantsTable.selectionModel().selectionChanged.connect(self.pantsSelect)
-        icon = QtGui.QIcon(self.q[0])
-        item = QtWidgets.QListWidgetItem(icon)
 
-        self.listWidget.addItem(item)
+
+        #icon2 = QtGui.QIcon(self.shirtAr[0])
+
+        #item2 = QtWidgets.QListWidgetItem(icon2, "shirt")
+
+        #self.listWidget.addItem(item)
+        #self.listWidget.addItem(item2)
 
 
         self.compileButton.clicked.connect(self.compile)
@@ -101,11 +107,27 @@ class UI(QtWidgets.QMainWindow):
 
     # base table click listener
     def baseSelect(self, selected, deselected):
+        i = None
         for ix in selected.indexes():
             self.q.append((self.baseTable.cellWidget(ix.row(), ix.column()).getPath()))
-            print(len(self.q))
+            name = os.path.basename(self.q[-1])
+            #icon = QtGui.QIcon(self.q[-1])
+            #item = QtWidgets.QListWidgetItem(icon, name)
+            #i = item
+            #print(name)
+            self.listWidget.addItem("test")
+
         for ix in deselected.indexes():
-            self.q.remove((self.baseTable.cellWidget(ix.row(), ix.column()).getPath()))
+            p = (self.baseTable.cellWidget(ix.row(), ix.column()).getPath())
+            self.q.remove(p)
+            #print(os.path.basename(p))
+            self.listWidget.takeItem("test")
+
+            #if i is not None:
+                #self.listWidget.removeItem(i)
+
+
+
 
 
     # head table click listener
@@ -128,6 +150,7 @@ class UI(QtWidgets.QMainWindow):
             self.q.append((self.pantsTable.cellWidget(ix.row(), ix.column()).getPath()))
         for ix in deselected.indexes():
             self.q.remove((self.pantsTable.cellWidget(ix.row(), ix.column()).getPath()))
+
 
 
     # calls recompile method, and resets imageLabel
