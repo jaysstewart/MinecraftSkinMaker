@@ -1,3 +1,4 @@
+import collections
 import os.path
 from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtGui import QPixmap, QIcon
@@ -61,10 +62,6 @@ class UI(QtWidgets.QMainWindow):
     # test code to populate q, DELETE LATER
     q = deque()
 
-    #q.append((headAr[0]))
-    #q.append(Image.open(pantsAr[0]))
-    #q.append(Image.open(shirtAr[1]))
-
     def __init__(self):
         super(UI, self).__init__()
         uic.loadUi('SkinUI.ui', self)
@@ -93,38 +90,32 @@ class UI(QtWidgets.QMainWindow):
         self.shirtTable.selectionModel().selectionChanged.connect(self.shirtSelect)
         self.pantsTable.selectionModel().selectionChanged.connect(self.pantsSelect)
 
-
-        #icon2 = QtGui.QIcon(self.shirtAr[0])
-
-        #item2 = QtWidgets.QListWidgetItem(icon2, "shirt")
-
-        #self.listWidget.addItem(item)
-        #self.listWidget.addItem(item2)
-
-
         self.compileButton.clicked.connect(self.compile)
         self.show()
 
     # base table click listener
     def baseSelect(self, selected, deselected):
-        i = None
+        j = None
         for ix in selected.indexes():
             self.q.append((self.baseTable.cellWidget(ix.row(), ix.column()).getPath()))
             name = os.path.basename(self.q[-1])
-            #icon = QtGui.QIcon(self.q[-1])
-            #item = QtWidgets.QListWidgetItem(icon, name)
-            #i = item
-            #print(name)
-            self.listWidget.addItem("test")
+            icon = QtGui.QIcon(self.q[-1])
+            item = QtWidgets.QListWidgetItem(icon, name)
+            j = item
+            self.listWidget.addItem(item)
 
         for ix in deselected.indexes():
             p = (self.baseTable.cellWidget(ix.row(), ix.column()).getPath())
             self.q.remove(p)
-            #print(os.path.basename(p))
-            self.listWidget.takeItem("test")
+            row = self.listWidget.row(j)
+            self.listWidget.takeItem(row - 1)
 
-            #if i is not None:
-                #self.listWidget.removeItem(i)
+
+
+            #print(os.path.basename(p))
+            #self.listWidget.takeItem(0)
+
+
 
 
 
@@ -132,17 +123,35 @@ class UI(QtWidgets.QMainWindow):
 
     # head table click listener
     def headSelect(self, selected, deselected):
+        j = None
         for ix in selected.indexes():
             self.q.append((self.headTable.cellWidget(ix.row(), ix.column()).getPath()))
+            name = os.path.basename(self.q[-1])
+            icon = QtGui.QIcon(self.q[-1])
+            item = QtWidgets.QListWidgetItem(icon, name)
+            j = item
+            self.listWidget.addItem(item)
         for ix in deselected.indexes():
-            self.q.remove((self.headTable.cellWidget(ix.row(), ix.column()).getPath()))
+            p = self.headTable.cellWidget(ix.row(), ix.column()).getPath()
+            self.q.remove(p)
+            row = self.listWidget.row(j)
+            self.listWidget.takeItem(row - 1)
 
     # shirt table click listener
     def shirtSelect(self, selected, deselected):
+        j = None
         for ix in selected.indexes():
             self.q.append((self.shirtTable.cellWidget(ix.row(), ix.column()).getPath()))
+            name = os.path.basename(self.q[-1])
+            icon = QtGui.QIcon(self.q[-1])
+            item = QtWidgets.QListWidgetItem(icon, name)
+            j = item
+            self.listWidget.addItem(item)
         for ix in deselected.indexes():
-            self.q.remove((self.shirtTable.cellWidget(ix.row(), ix.column()).getPath()))
+            p = self.shirtTable.cellWidget(ix.row(), ix.column()).getPath()
+            self.q.remove(p)
+            row = self.listWidget.row(j)
+            self.listWidget.takeItem(row - 1)
 
     # pants table click listener
     def pantsSelect(self, selected, deselected):
