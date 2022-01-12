@@ -1,3 +1,4 @@
+from Skin import Skin
 import collections
 import os.path
 from PyQt5 import QtWidgets, uic, QtGui
@@ -7,7 +8,7 @@ from collections import deque
 from PIL import Image
 import actions
 
-
+skin = Skin()
 # Image object to be place in table cells
 class ImageWidget(QtWidgets.QWidget):
 
@@ -95,29 +96,21 @@ class UI(QtWidgets.QMainWindow):
 
     # base table click listener
     def baseSelect(self, selected, deselected):
-        j = None
+
+        for ix in deselected.indexes():
+            p = (self.baseTable.cellWidget(ix.row(), ix.column()).getPath())
+            self.q.remove(p)
+            row = skin.get_body()
+            self.listWidget.takeItem(row)
+
         for ix in selected.indexes():
             self.q.append((self.baseTable.cellWidget(ix.row(), ix.column()).getPath()))
             name = os.path.basename(self.q[-1])
             icon = QtGui.QIcon(self.q[-1])
             item = QtWidgets.QListWidgetItem(icon, name)
-            j = item
             self.listWidget.addItem(item)
-
-        for ix in deselected.indexes():
-            p = (self.baseTable.cellWidget(ix.row(), ix.column()).getPath())
-            self.q.remove(p)
-            row = self.listWidget.row(j)
-            self.listWidget.takeItem(row - 1)
-
-
-
-            #print(os.path.basename(p))
-            #self.listWidget.takeItem(0)
-
-
-
-
+            skin.set_body(self.listWidget.row(item))
+            print(self.listWidget.row(item))
 
 
 
