@@ -9,6 +9,8 @@ from PIL import Image
 import actions
 
 skin = Skin()
+
+
 # Image object to be place in table cells
 class ImageWidget(QtWidgets.QWidget):
 
@@ -23,8 +25,6 @@ class ImageWidget(QtWidgets.QWidget):
 
     def getPath(self):
         return self.path
-
-
 
 
 class UI(QtWidgets.QMainWindow):
@@ -78,6 +78,7 @@ class UI(QtWidgets.QMainWindow):
         self.pantsTable = self.findChild(QtWidgets.QTableWidget, 'pantsTable')
 
         self.listWidget.setViewMode(QtWidgets.QListView.IconMode)
+        self.listWidget.itemSelectionChanged.connect()
 
         # fill tables with array of images
         self.fillTable(self.baseAr, self.baseTable)
@@ -93,6 +94,10 @@ class UI(QtWidgets.QMainWindow):
 
         self.compileButton.clicked.connect(self.compile)
         self.show()
+
+    # method to add layer to array, array will be handled to actions buttons
+    def listSelection(self):
+
 
     # base table click listener
     def baseSelect(self, selected):
@@ -122,13 +127,14 @@ class UI(QtWidgets.QMainWindow):
             self.listWidget.addItem(item)
 
     # pants table click listener
-    def pantsSelect(self, selected, deselected):
+    def pantsSelect(self, selected):
         for ix in selected.indexes():
             self.q.append((self.pantsTable.cellWidget(ix.row(), ix.column()).getPath()))
             name = os.path.basename(self.q[-1])
             icon = QtGui.QIcon(self.q[-1])
             item = QtWidgets.QListWidgetItem(icon, name)
             self.listWidget.addItem(item)
+
 
     # calls recompile method, and resets imageLabel
     def compile(self):
@@ -138,7 +144,6 @@ class UI(QtWidgets.QMainWindow):
 
     # dynamically fill tables with images from array
     def fillTable(self, ar, table):
-
         table.setColumnCount(2)
         table.setRowCount(2)
         row = 0

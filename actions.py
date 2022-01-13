@@ -1,6 +1,8 @@
 from collections import deque
 from PIL import Image
 
+# might move methods to UI class, actions class seems redundant since most functionality takes place in UI
+
 
 # move layer up an element in queue
 def moveLayerUp(q, layerIdx):
