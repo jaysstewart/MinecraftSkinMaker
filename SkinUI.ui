@@ -83,7 +83,7 @@
     <property name="geometry">
      <rect>
       <x>870</x>
-      <y>560</y>
+      <y>630</y>
       <width>121</width>
       <height>51</height>
      </rect>
@@ -105,7 +105,7 @@
      <string>TextLabel</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="moveUpButton">
     <property name="geometry">
      <rect>
       <x>830</x>
@@ -118,7 +118,7 @@
      <string>Move Up </string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="moveDownButton">
     <property name="geometry">
      <rect>
       <x>930</x>
@@ -192,6 +192,19 @@
       <width>101</width>
       <height>391</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="removeButton">
+    <property name="geometry">
+     <rect>
+      <x>830</x>
+      <y>550</y>
+      <width>93</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Remove Layer</string>
     </property>
    </widget>
   </widget>

@@ -28,6 +28,8 @@ class ImageWidget(QtWidgets.QWidget):
 
 
 class UI(QtWidgets.QMainWindow):
+
+
     # populate base Array
     baseAr = list()
     d = "skintemplates/Base/"
@@ -70,15 +72,16 @@ class UI(QtWidgets.QMainWindow):
         # link UI with python object
         self.imageLabel = self.findChild(QtWidgets.QLabel, 'imageLabel')
         self.compileButton = self.findChild(QtWidgets.QPushButton, 'compileButton')
+        self.moveUpButton = self.findChild(QtWidgets.QPushButton, 'moveUpButton')
+        self.moveDownButton = self.findChild(QtWidgets.QPushButton, 'moveDownButton')
+        self.removeButton = self.findChild(QtWidgets.QPushButton, 'removeButton')
         self.listWidget = self.findChild(QtWidgets.QListWidget, 'listWidget')
-
         self.baseTable = self.findChild(QtWidgets.QTableWidget, 'baseTable')
         self.headTable = self.findChild(QtWidgets.QTableWidget, 'headTable')
         self.shirtTable = self.findChild(QtWidgets.QTableWidget, 'shirtTable')
         self.pantsTable = self.findChild(QtWidgets.QTableWidget, 'pantsTable')
 
         self.listWidget.setViewMode(QtWidgets.QListView.IconMode)
-        self.listWidget.itemSelectionChanged.connect()
 
         # fill tables with array of images
         self.fillTable(self.baseAr, self.baseTable)
@@ -86,18 +89,24 @@ class UI(QtWidgets.QMainWindow):
         self.fillTable(self.shirtAr, self.shirtTable)
         self.fillTable(self.pantsAr, self.pantsTable)
 
-        # calls table listeners to make selections.
+        # calls listeners to make selections.
         self.baseTable.selectionModel().selectionChanged.connect(self.baseSelect)
         self.headTable.selectionModel().selectionChanged.connect(self.headSelect)
         self.shirtTable.selectionModel().selectionChanged.connect(self.shirtSelect)
         self.pantsTable.selectionModel().selectionChanged.connect(self.pantsSelect)
-
+        self.listWidget.itemClicked.connect(self.listSelection)
         self.compileButton.clicked.connect(self.compile)
+        self.removeButton.clicked.connect(self.removeLayer)
+
         self.show()
 
-    # method to add layer to array, array will be handled to actions buttons
-    def listSelection(self):
+    def removeLayer(self):
+        if self.listWidget.currentItem is not None:
+            ix
 
+    # method to set selected item in listWidget, will allow to remove / move layers
+    def listSelection(self, selected):
+        self.listWidget.setCurrentItem(selected)
 
     # base table click listener
     def baseSelect(self, selected):
@@ -134,7 +143,6 @@ class UI(QtWidgets.QMainWindow):
             icon = QtGui.QIcon(self.q[-1])
             item = QtWidgets.QListWidgetItem(icon, name)
             self.listWidget.addItem(item)
-
 
     # calls recompile method, and resets imageLabel
     def compile(self):
