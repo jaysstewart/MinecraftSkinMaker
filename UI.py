@@ -28,8 +28,6 @@ class ImageWidget(QtWidgets.QWidget):
 
 
 class UI(QtWidgets.QMainWindow):
-
-
     # populate base Array
     baseAr = list()
     d = "skintemplates/Base/"
@@ -97,16 +95,46 @@ class UI(QtWidgets.QMainWindow):
         self.listWidget.itemClicked.connect(self.listSelection)
         self.compileButton.clicked.connect(self.compile)
         self.removeButton.clicked.connect(self.removeLayer)
+        self.moveUpButton.clicked.connect(self.moveLayerUp)
+        self.moveDownButton.clicked.connect(self.moveLayerDown)
 
         self.show()
 
+    def moveLayerDown(self):
+        if int(self.listWidget.currentRow()) != -1:
+            print(self.listWidget.currentRow())
+            # up and down are reverted
+            actions.moveLayerUp(self.q, self.listWidget.currentRow())
+            self.listWidget.clear()
+            for i in self.q:
+                name = os.path.basename(i)
+                icon = QtGui.QIcon(i)
+                item = QtWidgets.QListWidgetItem(icon, name)
+                self.listWidget.addItem(item)
+
+    def moveLayerUp(self):
+        if int(self.listWidget.currentRow()) != -1 and self.listWidget.currentRow() != 0:
+            print(self.listWidget.currentRow())
+            # up and down are reverted
+            actions.moveLayerDown(self.q, self.listWidget.currentRow())
+            self.listWidget.clear()
+            for i in self.q:
+                name = os.path.basename(i)
+                icon = QtGui.QIcon(i)
+                item = QtWidgets.QListWidgetItem(icon, name)
+                self.listWidget.addItem(item)
+
+
+    # remove layer if one has been selected
     def removeLayer(self):
-        if self.listWidget.currentItem is not None:
-            ix
+        if self.listWidget.currentRow() != -1:
+            self.listWidget.takeItem(self.listWidget.currentRow())
+            del self.q[self.listWidget.currentRow()]
 
     # method to set selected item in listWidget, will allow to remove / move layers
     def listSelection(self, selected):
         self.listWidget.setCurrentItem(selected)
+        self.listWidget.setCurrentRow(self.listWidget.row(selected))
 
     # base table click listener
     def baseSelect(self, selected):
@@ -157,7 +185,7 @@ class UI(QtWidgets.QMainWindow):
         row = 0
         column = 0
 
-        # iterate through columns
+        # iterate through rows
         for i in ar:
             # edge case
             if i == 0:
